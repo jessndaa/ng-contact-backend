@@ -17,8 +17,7 @@
             "description": "JWT Authorization header using the Bearer scheme. Example: Authorization: Bearer {token}"
         }
     },
-    "host": "localhost:5000/api",
-    "basePath": "/",
+    "basePath": "/api",
     "tags": [
         {
             "name": "Users",
