@@ -1,6 +1,6 @@
 # Gestion des contacts | REST API
 
-This project was developped by [Jessy NDAYA](https://github.com/jessndaa).
+This project was developped with [nodejs](https://nodejs.org/).
 
 ## Server
 
