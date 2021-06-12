@@ -1,0 +1,696 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Test technique Project CRUD",
+    "description": "Test technique Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "JWT Authorization header using the Bearer scheme. Example: Authorization: Bearer {token}"
+    }
+  },
+  "host": "localhost:5000/api",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Contact",
+      "description": "API user contact access"
+    }
+  ],
+  "paths": {
+    "/user/authenticate": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authenticate user on the api",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "description": "User name"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "type": "string",
+            "description": "User password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "type": "string",
+            "description": "User name",
+            "properties":{
+                  "name": {
+                      "type": "string"
+                  },
+                  "password": {
+                      "type": "string"
+                  }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "update user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "type": "string",
+            "description": "User name",
+            "properties":{
+                  "name": {
+                      "type": "string"
+                  },
+                  "password": {
+                      "type": "string"
+                  }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "tags": [
+          "Contact"
+        ],
+        "summary": "Get all user contacts",
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "tags": [
+          "Contact"
+        ],
+        "parameters": [
+          {
+            "name": "contact",
+            "in": "body",
+            "type": "string",
+            "description": "user contact information",
+            "properties":{
+              "name": {
+                  "type": "string"
+              },
+              "prename": {
+                  "type": "string"
+              },
+              "phone": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "position": {
+                  "type": "string"
+              },
+              "society": {
+                  "type": "string"
+              },
+              "societyAdress": {
+                  "type": "string"
+              },
+              "userId": {
+                  "type": "string"
+              }
+            }
+          }
+        ],
+        "summary": "create new contact",
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "tags": [
+          "Contact"
+        ],
+        "parameters": [
+          {
+            "name": "contact",
+            "in": "body",
+            "type": "string",
+            "description": "user contact information",
+            "properties":{
+              "id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "prename": {
+                  "type": "string"
+              },
+              "phone": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "position": {
+                  "type": "string"
+              },
+              "society": {
+                  "type": "string"
+              },
+              "societyAdress": {
+                  "type": "string"
+              }
+            }
+          }
+        ],
+        "summary": "update user contact",
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/{id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User id"
+          }
+        ],
+        "tags": [
+          "Contact"
+        ],
+        "summary": "Get one user contact",
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "tags": [
+          "Contact"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User id"
+          }
+        ],
+        "summary": "delete user contact",
+        "responses": {
+          "200": {
+            "description": "Authenticated user",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "401": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exist",
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "name",
+        "_id",
+        "companies"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "token":{
+          "type": "string",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Contact"
+          }
+        }
+      }
+    },
+    "Contact": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "prename": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "society": {
+          "type": "string"
+        },
+        "societyAdress": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ]
+}

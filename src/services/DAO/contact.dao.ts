@@ -16,9 +16,9 @@ export class ContactDAO {
           .collection(this._COLLECTION_NAME).get();
           var contacts: Array<ContactModel> = [];
           dataDocs?.forEach((e)=>contacts.push({
+               ...e.data(),
                id: e.id,
                userId: data.id,
-               ...e.data(),
           } as ContactModel));
           return contacts;
      }
@@ -29,16 +29,17 @@ export class ContactDAO {
           .doc(data.id!).get();
           if(!dataDoc?.exists) return;
           return {
+               ...dataDoc.data(),
                id: dataDoc.id,
                userId: data.userId,
-               ...dataDoc.data(),
           } as ContactModel;
      }
      addContact(user: UserModel, data: ContactModel){
+          const {name, prename, phone, email, position, society, societyAdress} = data;
           return FirestoreService.instance?.collection("user")
                .doc(user.id!)
                     .collection(this._COLLECTION_NAME)
-                         .add(data);
+                         .add({name, prename, phone, email, position, society, societyAdress});
      }
      deleteOneContact(user: UserModel, data: ContactModel){
           return FirestoreService.instance?.collection("user")
@@ -48,10 +49,11 @@ export class ContactDAO {
                          .delete();
      }
      updateOneContact(user: UserModel, data: ContactModel){
+          const {name, prename, phone, email, position, society, societyAdress} = data;
           return FirestoreService.instance?.collection("user")
                .doc(user.id!)
                     .collection(this._COLLECTION_NAME)
                          .doc(data.id!)
-                         .update(data);
+                         .update({name, prename, phone, email, position, society, societyAdress});
      }
 }

@@ -1,4 +1,5 @@
 import * as express from 'express';
+
 import { UserDAO } from '../services/DAO/user.dao';
 import { Utility } from '../utils/utils';
 import { ContactRoute } from './contact/Contact.route';
@@ -11,13 +12,14 @@ export const router = express.Router();
 // user url
 router.get('/user/authenticate', UserRoute.Authenticate);
 router.post('/user/create', UserRoute.Create);
+router.put('/user/update', UserRoute.update);
 
 
 router.get('/contacts', userExistMidleware, ContactRoute.getAll);
 router.get('/contact/:id', userExistMidleware, ContactRoute.getContact);
-router.post('/contact', userExistMidleware, UserRoute.Create);
-router.delete('/contact', userExistMidleware, UserRoute.Create);
-router.put('/contact', userExistMidleware, UserRoute.Create);
+router.post('/contact', userExistMidleware, ContactRoute.Create);
+router.delete('/contact/:id', userExistMidleware, ContactRoute.Delete);
+router.put('/contact', userExistMidleware, ContactRoute.Update);
 
 
 

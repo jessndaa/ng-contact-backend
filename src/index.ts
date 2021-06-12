@@ -1,4 +1,6 @@
 import express from 'express';
+import * as swaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from './docs/swagger.json';
 import cors from 'cors'; 
 import { router } from './routes/index';
 import * as path from 'path';
@@ -21,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public'), {}))
 // cors middleware
 app.use(cors()); 
 app.use('/api',  router);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, ()=>{
     console.log("The serve is runing" + port);

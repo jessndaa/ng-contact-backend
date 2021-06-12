@@ -35,4 +35,13 @@ export class UserDAO {
                     ?.collection(this._COLLECTION_NAME)
                         .add(data);
     }
+    update(data: UserModel){
+        return FirestoreService.instance
+                    ?.collection(this._COLLECTION_NAME)
+                        .doc(data.id!)
+                        .update({
+                            name: data.name,
+                            password: data.password
+                        });
+    }
 }
